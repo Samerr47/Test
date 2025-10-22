@@ -1,0 +1,25 @@
+CREATE DATABASE IF NOT EXISTS schooldb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE schooldb;
+
+CREATE TABLE IF NOT EXISTS tbl_student (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  roll_number VARCHAR(50) NOT NULL,
+  dob DATE NOT NULL,
+  class VARCHAR(50) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS tbl_attendance (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  student_id INT NOT NULL,
+  attendance_date DATE NOT NULL,
+  present TINYINT(1) NOT NULL DEFAULT 0,
+  absent  TINYINT(1) NOT NULL DEFAULT 0,
+  CONSTRAINT fk_att_student FOREIGN KEY (student_id)
+    REFERENCES tbl_student(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- بيانات تجريبية بسيطة (اختياري):
+INSERT INTO tbl_student (name, roll_number, dob, class) VALUES
+('Ali','S1001','2010-01-02','5A'),
+('Sara','S1002','2011-05-11','4B');
